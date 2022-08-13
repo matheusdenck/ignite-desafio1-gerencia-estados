@@ -18,7 +18,9 @@ class _HomePageState extends State<HomePage> {
     initialPage: 0,
     keepPage: true,
   );
+
   var _selectedIndex = 0;
+
   void onResetItem(ToDoItem item) {
     setState(() {
       widget.controller.doneItemList.remove(item);

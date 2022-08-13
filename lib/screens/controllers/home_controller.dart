@@ -34,19 +34,4 @@ class HomeController extends GerenciaDeEstado<List<ToDoItem>> {
     );
     setState(_doneItemList);
   }
-
-  void onResetItem(ToDoItem item) {
-    _doneItemList.remove(item);
-    _toDoItemList.add(
-      ToDoItem(
-        title: item.title,
-      ),
-    );
-    setState(_doneItemList);
-  }
-
-  void onRemoveDoneItem(ToDoItem item) {
-    _doneItemList.remove(item);
-    setState(_doneItemList);
-  }
 }
