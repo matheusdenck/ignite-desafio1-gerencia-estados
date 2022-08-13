@@ -21,23 +21,6 @@ class _HomePageState extends State<HomePage> {
 
   var _selectedIndex = 0;
 
-  void onResetItem(ToDoItem item) {
-    setState(() {
-      widget.controller.doneItemList.remove(item);
-      widget.controller.toDoItemList.add(
-        ToDoItem(
-          title: item.title,
-        ),
-      );
-    });
-  }
-
-  void onRemoveDoneItem(ToDoItem item) {
-    setState(() {
-      widget.controller.doneItemList.remove(item);
-    });
-  }
-
   @override
   void dispose() {
     _pageViewController.dispose();
@@ -48,27 +31,27 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: PageView(
-        controller: _pageViewController,
-        children: <Widget>[
-          BuilderWidget<List<ToDoItem>>(
-            controller: widget.controller,
-            builder: (context, state) => TaskScreen(
+      body: BuilderWidget<List<ToDoItem>>(
+        controller: widget.controller,
+        builder: (context, state) => PageView(
+          controller: _pageViewController,
+          children: <Widget>[
+            TaskScreen(
               itemList: widget.controller.toDoItemList,
               onAddItem: widget.controller.onAddItem,
               onCompleteItem: widget.controller.onCompleteItem,
               onRemoveItem: widget.controller.onRemoveToDoItem,
             ),
-          ),
-          DoneScreen(
-            itemList: widget.controller.doneItemList,
-            onRemoveItem: onRemoveDoneItem,
-            onResetItem: onResetItem,
-          ),
-        ],
-        onPageChanged: (index) {
-          setState(() => _selectedIndex = index);
-        },
+            DoneScreen(
+              itemList: widget.controller.doneItemList,
+              onRemoveItem: widget.controller.onRemoveDoneItem,
+              onResetItem: widget.controller.onResetItem,
+            ),
+          ],
+          onPageChanged: (index) {
+            setState(() => _selectedIndex = index);
+          },
+        ),
       ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,

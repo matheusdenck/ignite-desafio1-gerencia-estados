@@ -10,6 +10,7 @@ class HomeController extends GerenciaDeEstado<List<ToDoItem>> {
   List<ToDoItem> get toDoItemList => _toDoItemList;
   List<ToDoItem> get doneItemList => _doneItemList;
 
+  ///Add item to ToDo List
   void onAddItem(String itemTitle) {
     _toDoItemList.add(
       ToDoItem(
@@ -19,11 +20,13 @@ class HomeController extends GerenciaDeEstado<List<ToDoItem>> {
     setState(_toDoItemList);
   }
 
+  ///Remove item from ToDo List
   void onRemoveToDoItem(ToDoItem item) {
     _toDoItemList.remove(item);
     setState(_toDoItemList);
   }
 
+  ///Remove item from ToDo List and add it to Done List
   void onCompleteItem(ToDoItem item) {
     _toDoItemList.remove(item);
     _doneItemList.add(
@@ -32,6 +35,23 @@ class HomeController extends GerenciaDeEstado<List<ToDoItem>> {
         isDone: true,
       ),
     );
+    setState(_toDoItemList);
+  }
+
+  ///Remove item from Done List and add it to ToDo List
+  void onResetItem(ToDoItem item) {
+    _doneItemList.remove(item);
+    _toDoItemList.add(
+      ToDoItem(
+        title: item.title,
+      ),
+    );
+    setState(_doneItemList);
+  }
+
+  ///Remove item from Done List
+  void onRemoveDoneItem(ToDoItem item) {
+    _doneItemList.remove(item);
     setState(_doneItemList);
   }
 }
