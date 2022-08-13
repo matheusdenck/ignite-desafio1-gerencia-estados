@@ -14,18 +14,14 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final _doneItemList = <ToDoItem>[];
   final _pageViewController = PageController(
     initialPage: 0,
     keepPage: true,
   );
-
   var _selectedIndex = 0;
-
   void onResetItem(ToDoItem item) {
     setState(() {
-      _doneItemList.remove(item);
-
+      widget.controller.doneItemList.remove(item);
       widget.controller.toDoItemList.add(
         ToDoItem(
           title: item.title,
@@ -36,7 +32,7 @@ class _HomePageState extends State<HomePage> {
 
   void onRemoveDoneItem(ToDoItem item) {
     setState(() {
-      _doneItemList.remove(item);
+      widget.controller.doneItemList.remove(item);
     });
   }
 
@@ -53,7 +49,7 @@ class _HomePageState extends State<HomePage> {
       body: PageView(
         controller: _pageViewController,
         children: <Widget>[
-          BuilderWidget<dynamic>(
+          BuilderWidget<List<ToDoItem>>(
             controller: widget.controller,
             builder: (context, state) => TaskScreen(
               itemList: widget.controller.toDoItemList,

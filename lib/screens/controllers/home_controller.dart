@@ -1,8 +1,8 @@
 import '../../shared/models/todo_item.dart';
 import 'gerencia_de_estado.dart';
 
-class HomeController extends GerenciaDeEstado {
-  HomeController() : super(initialState: 0);
+class HomeController extends GerenciaDeEstado<List<ToDoItem>> {
+  HomeController() : super(initialState: <ToDoItem>[]);
 
   final List<ToDoItem> _toDoItemList = <ToDoItem>[];
   final List<ToDoItem> _doneItemList = <ToDoItem>[];
@@ -32,6 +32,21 @@ class HomeController extends GerenciaDeEstado {
         isDone: true,
       ),
     );
+    setState(_doneItemList);
+  }
+
+  void onResetItem(ToDoItem item) {
+    _doneItemList.remove(item);
+    _toDoItemList.add(
+      ToDoItem(
+        title: item.title,
+      ),
+    );
+    setState(_doneItemList);
+  }
+
+  void onRemoveDoneItem(ToDoItem item) {
+    _doneItemList.remove(item);
     setState(_doneItemList);
   }
 }
